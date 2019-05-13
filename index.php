@@ -245,7 +245,7 @@ function getCochranListing($query, $file, $limit, $type){
 			
 					);
 				};
-			$filename= ''.$file.'.json';
+			$filename= 'data/'.$file.'.json';
 
 			file_put_contents($filename,json_encode($listingCustom)) ;
 
