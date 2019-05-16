@@ -37,6 +37,7 @@ function getCochranListing($query, $file, $limit, $type){
 
 	// get a session ready using the configuration
 	$rets = new \PHRETS\Session($config);
+
 	// make the first request
    
         $connect = $rets->Login();
@@ -224,7 +225,7 @@ function getCochranListing($query, $file, $limit, $type){
 			
 					);
 				};
-			$filename= ''.$file.'.json';
+			$filename= 'data/'.$file.'.json';
 
 			file_put_contents($filename,json_encode($listingCustom)) ;
 			}
