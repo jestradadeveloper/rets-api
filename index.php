@@ -8,7 +8,7 @@
  * @subpackage modern
  */
 
-
+/*
 
 // set your timezone
 	date_default_timezone_set('America/Mexico_City');
@@ -248,8 +248,11 @@ function getCochranListing($query, $file, $limit, $type){
 			$filename= 'data/'.$file.'.json';
 
 			file_put_contents($filename,json_encode($listingCustom)) ;
+			}
+*/
+			
 
-			//$json_data = json_encode($resulado);
-	
+			$data = file_get_contents ('./retslist.json');
+			$json = json_decode($data, TRUE);
+			print_r ($json);
 
-}
