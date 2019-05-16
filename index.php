@@ -253,6 +253,7 @@ function getCochranListing($query, $file, $limit, $type){
 			
 
 			$data = file_get_contents ('./retslist.json');
-			$json = json_encode($data, TRUE);
-			print_r ($data);
+			$json = json_encode($data,JSON_PRETTY_PRINT);
+			header('Content-Type: application/json');
+			echo $data;
 
