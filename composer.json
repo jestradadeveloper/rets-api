@@ -1,7 +1,5 @@
 {
     "require": {
-        "troydavisson/phrets": "^2.6",
-        "psr/log": "^1.1",
-        "monolog/monolog": "^1.24"
+        "troydavisson/phrets": "^2.6"
     }
 }
