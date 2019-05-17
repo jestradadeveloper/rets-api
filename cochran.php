@@ -11,7 +11,7 @@
 	$config->setLoginUrl('http://retsgw.flexmls.com:80/rets2_3/Login')
 			->setUsername('pvr.rets.murray')
             ->setPassword('spear-gyny87')
-            ->setRetsVersion('1.7.2');;
+            ->setRetsVersion('1.7.2');
 
 	// get a session ready using the configuration
 	$rets = new \PHRETS\Session($config);
@@ -39,7 +39,7 @@ function getCochranListing($query, $file, $limit, $type){
 
 	// get a session ready using the configuration
 	$rets = new \PHRETS\Session($config);
-   // $rets ->setLogger($log);
+   //s $rets ->setLogger($log);
 	// make the first request
    
         $connect = $rets->Login();
