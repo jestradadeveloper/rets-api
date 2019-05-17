@@ -7,19 +7,25 @@
 	// pull in the packages managed by Composer
 	require("vendor/autoload.php");
 	// setup your configuration
-	$config = new \PHRETS\Configuration;
-	$config->setLoginUrl('http://retsgw.flexmls.com:80/rets2_3/Login')
-			->setUsername('pvr.rets.murray')
-            ->setPassword('spear-gyny87')
-            ->setRetsVersion('1.7.2');
+	//$config = new \PHRETS\Configuration;
+	//$config->setLoginUrl('')
+	//		->setUsername('pvr.rets.murray')
+      //      ->setPassword('spear-gyny87')
+		//	->setRetsVersion('1.7.2');
+			$rets_login_url='http://retsgw.flexmls.com:80/rets2_3/Login';
+			$rets_password='spear-gyny87';
+			$rets_username='pvr.rets.murray';
+			
+			$config = new \PHRETS\Configuration;
+			$config->setLoginUrl($rets_login_url);
+			$config->setUsername($rets_username);
+			$config->setPassword($rets_password);
+			$config->setHttpAuthenticationMethod('digest'); // or 'basic' if required 
+			$config->setOption('use_post_method', false); // boolean
+			$config->setOption('disable_follow_location', false); // boolean
 
 	// get a session ready using the configuration
 	$rets = new \PHRETS\Session($config);
-	$rets->getClient()->setDefaultOption('config', [
-		'curl' => [
-			CURLOPT_COOKIEFILE => tempnam(null, 'phrets')
-		]
-	]);
 	$connect = $rets->Login();
 	
 		$queryCochranProperties = '(LIST_5=20101129163639581623000000)';
