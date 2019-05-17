@@ -15,7 +15,7 @@
 
 	// get a session ready using the configuration
 	$rets = new \PHRETS\Session($config);
-	$rets->getClient()->setDefaultOption('config', [
+	$this->rets->getClient()->setDefaultOption('config', [
 		'curl' => [
 			CURLOPT_COOKIEFILE => tempnam(null, 'phrets')
 		]
