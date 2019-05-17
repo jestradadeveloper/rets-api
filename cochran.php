@@ -15,7 +15,12 @@
 
 	// get a session ready using the configuration
 	$rets = new \PHRETS\Session($config);
-        $connect = $rets->Login();
+	$rets->getClient()->setDefaultOption('config', [
+		'curl' => [
+			CURLOPT_COOKIEFILE => tempnam(null, 'phrets')
+		]
+	]);
+	$connect = $rets->Login();
 	
 		$queryCochranProperties = '(LIST_5=20101129163639581623000000)';
 				getCochranListing($allRecords, 'retlists',4000,'all');
