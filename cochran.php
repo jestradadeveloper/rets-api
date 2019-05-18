@@ -1,4 +1,3 @@
-
 <?php
 
 // set your timezone
@@ -6,40 +5,9 @@
 
 	// pull in the packages managed by Composer
 	require("vendor/autoload.php");
-	// setup your configuration
-	//$config = new \PHRETS\Configuration;
-	//$config->setLoginUrl('')
-	//		->setUsername('pvr.rets.murray')
-      //      ->setPassword('spear-gyny87')
-		//	->setRetsVersion('1.7.2');
-			$rets_login_url='http://retsgw.flexmls.com:80/rets2_3/Login';
-			$rets_password='spear-gyny87';
-			$rets_username='pvr.rets.murray';
-			
-			$config = new \PHRETS\Configuration;
-			$config->setLoginUrl($rets_login_url);
-			$config->setUsername($rets_username);
-			$config->setPassword($rets_password);
-			$config->setHttpAuthenticationMethod('digest'); // or 'basic' if required 
-			$config->setOption('use_post_method', false); // boolean
-			$config->setOption('disable_follow_location', false); // boolean
-
-	// get a session ready using the configuration
-	$rets = new \PHRETS\Session($config);
-	$connect = $rets->Login();
-	
-		$queryCochranProperties = '(LIST_5=20101129163639581623000000)';
-				getCochranListing($allRecords, 'retlists',4000,'all');
-function getCochranListing($query, $file, $limit, $type){
-	$listingCustom = [];
-	date_default_timezone_set('America/Mexico_City');
-
-	// pull in the packages managed by Composer
-	require("vendor/autoload.php");
-	/*
     $log = new \Monolog\Logger('PHRETS');
     $log->pushHandler(new \Monolog\Handler\StreamHandler('php://stdout', \Monolog\Logger::DEBUG));
-    */
+
 
 	// setup your configuration
 	$config = new \PHRETS\Configuration;
@@ -50,7 +18,92 @@ function getCochranListing($query, $file, $limit, $type){
 
 	// get a session ready using the configuration
 	$rets = new \PHRETS\Session($config);
-   //s $rets ->setLogger($log);
+    $rets ->setLogger($log);
+	// make the first request
+   
+        $connect = $rets->Login();
+	
+		$queryCochranProperties = '(LIST_5=20101129163639581623000000)';
+		$queryArea= '(LIST_29=X4OPC8T7EUJ)';
+		$queryNewListings='(LIST_87=2018-12-01+)';
+		$queryCondos='(LIST_8=A)';
+		$queryHouses='(LIST_8=B)';
+		$queryNewDevelopments="(LIST_148=1APXN3541Y1Q)";
+		$queryLand='(LIST_8=E)';
+		$queryCommercial='(LIST_8=F)';
+		
+		$allRecords='*';
+
+		$popularAreas=[
+			"Zona Romantica" => '(LIST_130=X4OPCNR2CJ1)', 
+			"South Shore" => '(LIST_29=X4OPC0CDMVF)',
+			"Sayulita"=>'(LIST_130=X4OPDPY9XTG)',
+			"San Pancho"=> '(LIST_130=X4OPDQQ5R9Q)',
+			"Punta Mita"=>'(LIST_29=X4OPCA3Q277)',
+			"Nuevo Vallarta E"=>'(LIST_29=12DJ1RZI5XT4)',
+			"Nuevo Vallarta W"=>'(LIST_29=12DJ1RZADYE0)',
+			"North Shore Guayavitos"=>'(LIST_29=X4OPCBYGXA7)',
+			"Mismaloya"=>'(LIST_130=X4OPCGZQKZE)',
+			"Marina Vallarta"=>'(LIST_29=X4OPC71MT0M)',
+			"Litibu"=>'(LIST_29=X4OPCAH0JVD)',
+			"Hotel Zone"=>'(LIST_29=X4OPC6Z6BQX)',
+			"Downtown Vallarta N"=>'(LIST_29=X4OPC1ULNX8)',
+			"Downtown Vallarta S"=>'(LIST_29=X4OPC1PYD6J)',
+			"Conchas Chinas L"=>'(LIST_130=X4OPCHBX5M7)',
+			"Conchas Chinas U"=>'(LIST_130=X4OPCI8B16D)',
+			"Bucerias"=>'(LIST_29=X4OPC8T7EUJ)',
+			"La Cruz de huanacaxtle"=>'(LIST_29=X4OPC9Y02TU)',
+			"Amapas"=>'(LIST_130=X4OPCICIM69)'
+		];
+		$types= array('condos','commercial','houses','land');
+		//getCochranListing($queryCochranProperties, 'cochranfeatured');
+		//getCochranListing($allRecords, 'commercial',1000,'commercial');
+	
+
+		/* 
+		foreach ($popularAreas as $clave=>$valor) {
+			$nombreArchivo = str_replace(" ","-",strtolower($clave));
+			
+			foreach($types as $t){
+				getCochranListing($valor, $nombreArchivo.'-'.$t ,1000,$t);
+			}
+		}
+		*/
+
+		/*
+		getCochranListing($allRecords, 'condos',500,'condos');
+		getCochranListing($allRecords, 'commercial',500,'commercial');
+		getCochranListing($allRecords, 'land',500,'land');
+		getCochranListing($allRecords, 'houses',500,'houses');
+		*/
+		//getCochranListing($queryNewDevelopments, 'newdevs', 5,'condos');
+		//getCochranListing($queryNewDevelopments, 'newdevelopments',45,'condos');
+		
+		//getCochranListing($allRecords, 'totalsuplement',5,'allrecords');
+		//getCochranListing($allRecords, 'condis',10,'condos');
+		//getCochranListing($queryCochranProperties, 'cochranfeatured',10,'allrecords');
+		//getCochranListing($queryCochranProperties, 'cochranfeatured',20,'allrecords');
+		getCochranListing($allRecords, 'fullrecords-A',3000,'allrecords');
+function getCochranListing($query, $file, $limit, $type){
+	$listingCustom = [];
+	date_default_timezone_set('America/Mexico_City');
+
+	// pull in the packages managed by Composer
+	require("vendor/autoload.php");
+    $log = new \Monolog\Logger('PHRETS');
+    $log->pushHandler(new \Monolog\Handler\StreamHandler('php://stdout', \Monolog\Logger::DEBUG));
+
+
+	// setup your configuration
+	$config = new \PHRETS\Configuration;
+	$config->setLoginUrl('http://retsgw.flexmls.com:80/rets2_3/Login')
+			->setUsername('pvr.rets.murray')
+            ->setPassword('spear-gyny87')
+            ->setRetsVersion('1.7.2');;
+
+	// get a session ready using the configuration
+	$rets = new \PHRETS\Session($config);
+    $rets ->setLogger($log);
 	// make the first request
    
         $connect = $rets->Login();
@@ -297,3 +350,4 @@ function getCochranListing($query, $file, $limit, $type){
 	
 
 }
+
